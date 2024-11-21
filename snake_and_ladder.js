@@ -73,7 +73,7 @@ function calculateScore(position) {
     let currentPosition = position + dice;
 
     if (currentPosition > 100) {
-      console.log("You exceeded the game bowndary")
+      console.log("You exceeded the game bowndary 100");
       currentPosition = position;
     }
 
@@ -82,6 +82,7 @@ function calculateScore(position) {
 
     return currentPosition;
   }
+  return position;
 }
 
 function startPlay(firstPersonsPosition, secondPersonPosition, p1, p2) {
@@ -92,21 +93,21 @@ function startPlay(firstPersonsPosition, secondPersonPosition, p1, p2) {
 
   DrawTheBox(firstPersonsPosition, secondPersonPosition);
 
-  console.log(p1, "\n👩🏽your next position  is ----", firstPersonsPosition);
+  console.log(p1, "👩🏽your next position  is ----", firstPersonsPosition);
 
   if (firstPersonsPosition === winPosition) {
     return " 👩🏽 Congratulation", p1, "you win the game 🥳 ";
   }
 
   console.log("___________________________________");
-  console.logp2, (p2, "  your turn 👨🏻\n");
+  console.log(p2, "  your turn 👨🏻\n");
   console.log(p2, "👨🏻 your privious position is ----", secondPersonPosition);
 
   secondPersonPosition = calculateScore(secondPersonPosition);
 
   DrawTheBox(firstPersonsPosition, secondPersonPosition);
 
-  console.log(p2, "\n👨🏻 your next position  is----", secondPersonPosition);
+  console.log(p2, "👨🏻 your next position  is----", secondPersonPosition);
 
   if (secondPersonPosition === winPosition) {
     return '\n👨🏻 Congratulation', p2, ' win the game 🥳 ';
@@ -121,6 +122,7 @@ function play() {
   if (confirm("start")) {
     const p1 = prompt("enter the First player name:");
     const p2 = prompt("enter the Second player name:");
+    console.log('\n', p1, 'your token is 🔴\n', p2, 'your token is 🟢\n');
 
     console.log(startPlay(0, 0, p1, p2));
 
@@ -130,17 +132,20 @@ function play() {
 
   }
   console.log("thanks for playing 🤟🏼");
+
   return 0;
 }
 
 function drawTheField(number, p1Score, p2Score) {
   let string = "";
+
   for (let times = 0; times < 10; times++) {
     if (number == p1Score) {
       string += " 🔴 ┃";
       number = number + 1;
       continue;
     }
+
     if (number == p2Score) {
       string += " 🟢 ┃";
       number = number + 1;
@@ -171,14 +176,15 @@ function drawTheField(number, p1Score, p2Score) {
 
 function drawTheFooter(symbol, size) {
   let footer = "┗";
+
   for (let index = 1; index < size; index++) {
     if (index % 5 === 0) {
       footer += '┻';
       continue;
     }
-
     footer = footer + symbol;
   }
+
   return footer += "┛";
 }
 
@@ -191,9 +197,9 @@ function drawTheHeader(symbol, size) {
       header += '┳';
       continue;
     }
-
     header = header + symbol;
   }
+
   return header += "┓";
 }
 
@@ -203,9 +209,9 @@ function divideTheField(newString, symbol) {
       newString += '╋';
       continue;
     }
-
     newString += symbol;
   }
+
   return newString + '┫';
 }
 
@@ -218,6 +224,7 @@ function drawTheLine(times, field, p1Score, p2Score, number) {
   field += drawTheField(number, p1Score, p2Score);
   field += '\n' + divideTheField("┣", "━") + '\n';
   number = number + 10;
+
   return drawTheLine(times + 1, field, p1Score, p2Score, number);
 }
 
@@ -225,7 +232,6 @@ function DrawTheBox(p1Score, p2Score) {
   console.log(drawTheHeader("━", size));
   console.log(drawTheLine(0, '', p1Score, p2Score, 1));
   console.log(drawTheFooter("━", size));
-
 }
 
 function welcome() {

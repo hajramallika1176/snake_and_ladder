@@ -26,7 +26,6 @@ function startPlay(rangeStart, rangeEnd, computerChoice, chances) {
   console.log("you have", chances, "chances");
 
   return startPlay(rangeStart, rangeEnd, computerChoice, chances);
-
 }
 
 function play(rangeStart, rangeEnd, maxAttempts) {

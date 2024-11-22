@@ -1,7 +1,7 @@
 const size = 50;
 const winPosition = 100;
 
-function inThereASnake(position) {
+function isThereASnake(position) {
   let priviousPosition = position;
 
   switch (priviousPosition) {
@@ -32,7 +32,7 @@ function inThereASnake(position) {
   return position;
 }
 
-function inThereALadder(position) {
+function isThereALadder(position) {
   let priviousPosition = position;
 
   switch (priviousPosition) {
@@ -77,8 +77,8 @@ function calculateScore(position) {
       currentPosition = position;
     }
 
-    currentPosition = inThereASnake(currentPosition);
-    currentPosition = inThereALadder(currentPosition);
+    currentPosition = isThereASnake(currentPosition);
+    currentPosition = isThereALadder(currentPosition);
 
     return currentPosition;
   }
@@ -90,13 +90,13 @@ function startPlay(firstPersonsPosition, secondPersonPosition, p1, p2) {
   console.log(p1, "👩🏽 your privious position is ---", firstPersonsPosition);
 
   firstPersonsPosition = calculateScore(firstPersonsPosition);
-
+  console.clear();
   DrawTheBox(firstPersonsPosition, secondPersonPosition);
 
   console.log(p1, "👩🏽your next position  is ----", firstPersonsPosition);
 
   if (firstPersonsPosition === winPosition) {
-    return " 👩🏽 Congratulation", p1, "you win the game 🥳 ";
+    return " 👩🏽 Congratulation " + p1 + " you win the game 🥳 ";
   }
 
   console.log("___________________________________");
@@ -104,13 +104,13 @@ function startPlay(firstPersonsPosition, secondPersonPosition, p1, p2) {
   console.log(p2, "👨🏻 your privious position is ----", secondPersonPosition);
 
   secondPersonPosition = calculateScore(secondPersonPosition);
-
+  console.clear();
   DrawTheBox(firstPersonsPosition, secondPersonPosition);
 
   console.log(p2, "👨🏻 your next position  is----", secondPersonPosition);
 
   if (secondPersonPosition === winPosition) {
-    return '\n👨🏻 Congratulation', p2, ' win the game 🥳 ';
+    return '\n👨🏻 Congratulation ' + p2 + ' you win the game 🥳 ';
   }
 
   console.log("___________________________________");
@@ -127,6 +127,7 @@ function play() {
     console.log(startPlay(0, 0, p1, p2));
 
     if (confirm("do you want to play again 🔁 ")) {
+      console.clear();
       return welcome();
     }
 
@@ -238,8 +239,7 @@ function welcome() {
   console.log("🙏 welcome to  SNAKE and LADDER Game.....\n__________________________________________________\n");
 
   DrawTheBox(0, 0);
+  play();
 }
 
 welcome();
-
-play();

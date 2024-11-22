@@ -1,15 +1,73 @@
-console.log("🙏 welcome to  BOMB Game.....\n");
-console.log("you have 11 steps .\nIf you safely cross all step then you will win the game.\n Othewise if you get BOMB then you have to start from the initial position:");
-const winPosition = 11;
-const size = 55;
+const winPosition = 13;
+const size = 65;
+const boxNumber = 13
+
+function drawTheField(number, playerPosition, B1, B2) {
+  let string = "";
+
+  for (let times = 0; times < boxNumber; times++) {
+
+    if (number == boxNumber) {
+      string += " 🏆 ┃";
+      number = number + 1;
+      continue;
+    }
+
+    if (number == playerPosition) {
+      string += playerPosition === B1 || playerPosition === B2 ? " 💣 ┃" : " 💃 ┃";
+      playerPosition = boxNumber + 1;
+    } else {
+      string += " 🟩 ┃";
+    }
+    number = number + 1;
+  }
+
+  return "┃" + string;
+}
+
+function repeat(string, times) {
+  if (times === 0) {
+    return "";
+  }
+
+  return string + repeat(string, times - 1);
+}
+
+function drawTheFooter() {
+  let footer = "┗";
+
+  for (let index = 1; index < boxNumber; index++) {
+    footer += repeat("━", 4) + '┻';
+  }
+
+  return footer += repeat("━", 4) + "┛";
+}
+
+function drawTheHeader() {
+  let header = "┏";
+
+  for (let index = 1; index < boxNumber; index++) {
+    header += repeat("━", 4) + '┳';
+  }
+
+  return header += repeat("━", 4) + "┓"
+}
+
+function DrawTheBox(playerPosition, B1, B2) {
+  console.log(drawTheHeader());
+  console.log(drawTheField(1, playerPosition, B1, B2));
+  console.log(drawTheFooter());
+}
 
 function PlayTheGame(currentPosition, B1, B2) {
   if (currentPosition === winPosition) {
-    return " you win 😎";
+    return " 🎉you win 😎";
   }
-  currentPosition += confirm(" you want to skip") ? 2 : 1;
 
-  if (currentPosition > 11) {
+  currentPosition += confirm(" you want to skip") ? 2 : 1;
+  console.clear();
+
+  if (currentPosition > boxNumber) {
     console.log("you cross the game bowndary.... go back");
 
     currentPosition -= 2;
@@ -27,75 +85,27 @@ function PlayTheGame(currentPosition, B1, B2) {
   return PlayTheGame(currentPosition, B1, B2);
 }
 
+function getBomposition() {
+  const bomb1 = Math.floor((Math.random()) * 10) / 1;
+  const bomb2 = Math.floor((Math.random()) * 10) / 1;
+  if ((bomb1 !== bomb2) && (bomb1 - 1 !== bomb2 || bomb1 - 1 !== bomb2)) {
 
-function drawTheField(number, playerPosition, B1, B2) {
-  let string = "";
-
-  for (let times = 0; times < 11; times++) {
-
-    if (number == 11) {
-      string += " 🏆 ┃";
-      number = number + 1;
-      continue;
-    }
-
-    if (number == playerPosition) {
-      string += playerPosition === B1 || playerPosition === B2 ? " 💣 ┃" : " 💃 ┃";
-      playerPosition = 12;
-    } else {
-      string += " 🟩 ┃";
-    }
-    number = number + 1;
+    return PlayTheGame(0, bomb1, bomb2);
   }
-
-  return "┃" + string;
+  return getBomposition();
 }
-
-function drawTheFooter(symbol, size) {
-  let footer = "┗";
-
-  for (let index = 1; index < size; index++) {
-    if (index % 5 === 0) {
-      footer += '┻';
-      continue;
-    }
-    footer = footer + symbol;
-  }
-
-  return footer += "┛";
-}
-
-function drawTheHeader(symbol, size) {
-  let header = "┏";
-
-  for (let index = 1; index < size; index++) {
-    if (index % 5 === 0) {
-      header += '┳';
-      continue;
-    }
-    header = header + symbol;
-  }
-
-  return header += "┓";
-}
-
-function DrawTheBox(playerPosition, B1, B2) {
-  console.log(drawTheHeader("━", size));
-  console.log(drawTheField(1, playerPosition, B1, B2));
-  console.log(drawTheFooter("━", size));
-}
-
 
 function play() {
-  DrawTheBox(0, 0, 0);
   const isPlay = (confirm(" Are you Excited to play The BOOM GAME.....🔥"));
-  const bombPosition1 = Math.floor((Math.random()) * 10) / 1;
-  const bombPosition2 = Math.floor((Math.random()) * 10) / 1;
+  console.clear();
+
 
   if (isPlay) {
-    console.log(PlayTheGame(0, bombPosition1, bombPosition2));
+    DrawTheBox(0, 0, 0);
+    console.log(getBomposition());
 
     if (confirm("\n do you want to play again🔁")) {
+      console.clear();
       return play();
     }
     console.log("Thanks For Playing 😉");
@@ -103,5 +113,13 @@ function play() {
   console.log("sorry to see you go 😔");
 }
 
-play();
+function welcomeMesage() {
+  console.log("🙏 welcome to  BOMB Game.....\n");
+  console.log("you have" + boxNumber + "steps .\nIf you safely cross all step then you will win the game.\n Othewise if you get BOMB then you have to start from the initial position:");
 
+  DrawTheBox(0, 0, 0);
+
+  play();
+}
+
+welcomeMesage();

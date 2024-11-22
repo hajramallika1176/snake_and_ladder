@@ -18,43 +18,43 @@ function createBorder(leftSymbol, string, rightSymbol) {
 
 function drawTheDivider(number) {
   if (number >= 100) {
-    return createBorder(" ",number," ");
+    return createBorder(" ", number, " ");
   }
-  
+
   if (number < 0) {
     return number + " ";
   }
-  
-  return number >= 10 ? createBorder(" ",number,"  ") : createBorder(" ",number,"   ");
+
+  return number >= 10 ? createBorder(" ", number, "  ") : createBorder(" ", number, "   ");
 }
 
 function drawMiddle(n1, n2, n3, n4, token, sign1, sign2) {
   let middle = "";
-  
+
   for (let index = 1; index <= number; index++) {
     if (index === 2 || index === 4) {
       if (token === 0) {
-        middle += createBorder('┃',"  " ,'┃')
+        middle += createBorder('┃', "  ", '┃')
         continue;
       }
 
-      middle += index === 2 ?createBorder('┃ ',sign1 ,'┃') : createBorder('┃ ',sign2 ,'┃')
+      middle += index === 2 ? createBorder('┃ ', sign1, '┃') : createBorder('┃ ', sign2, '┃')
     }
-    
+
     switch (index) {
       case 1: middle = middle + drawTheDivider(n1);
-      break;
+        break;
       case 3: middle = middle + drawTheDivider(n2);
-      break;
+        break;
       case 5: middle = middle + drawTheDivider(n3);
-      break;
+        break;
       case 6: middle = middle + " " + "=" + " ";
-      break;
+        break;
       case 7: middle = middle + drawTheDivider(n4);
-      break;
+        break;
     }
   }
-  
+
   return middle;
 }
 
@@ -62,7 +62,7 @@ function drawTheFooter() {
   let footer = "";
 
   for (let index = 1; index <= number; index++) {
-    if (index === 2 ||index === 4) {
+    if (index === 2 || index === 4) {
       const bottomLine = repeat("━", 2);
       footer += createBorder("┗", bottomLine, "┛");
       continue;
@@ -74,11 +74,11 @@ function drawTheFooter() {
   return footer;
 }
 
-function drawTheHeader() { 
+function drawTheHeader() {
   let header = "";
 
   for (let index = 1; index <= number; index++) {
-    if (index === 2 ||index === 4) {
+    if (index === 2 || index === 4) {
       //console.log("k")
       const topLine = repeat("━", 2);
       header += createBorder("┏", topLine, '┓');
@@ -90,7 +90,7 @@ function drawTheHeader() {
 
   return header;
 }
-//function addString()
+
 
 function creatBox(n1, n2, n3, n4, token, sign1, sign2) {
 
@@ -140,8 +140,8 @@ function getEquation(option) {
   return value;
 }
 
-function getRandomNumber(from,to) {
-  return from + Math.floor((Math.random()) * (to-from));
+function getRandomNumber(from, to) {
+  return from + Math.floor((Math.random()) * (to - from));
 }
 
 function getMessage(correct, score, incorrect) {
@@ -155,8 +155,8 @@ function startPlay(score, number, correct) {
     return getMessage(correct, score, incorrect);
   }
 
-  const randaomNumber = getRandomNumber(1,10);
-  
+  const randaomNumber = getRandomNumber(1, 10);
+
   let sign = getEquation(randaomNumber);
 
   let userSign = prompt("Enter The correct Sign:");
@@ -199,7 +199,7 @@ function play() {
 }
 
 function welCome() {
-  console.log("🙏 Welcome to Guess the sign!\n---------------------");
+  console.log("🙏 Welcome to Guess the OPERATOR LOST Game!\n---------------------");
 
   if (confirm("do you want to view the rules")) {
     console.log(rulesTheGame());
@@ -209,6 +209,3 @@ function welCome() {
 }
 
 welCome();
-
-
-

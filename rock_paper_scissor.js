@@ -127,7 +127,6 @@ function startPlay(count, playerScore, computScore) {
 
   console.log("\nyour score is: " + playerScore + '|' + "computer  score is: " + computScore);
 
-
   if (confirm("\ntry again")) {
     return startPlay(count + 1, playerScore, computScore)
   }
